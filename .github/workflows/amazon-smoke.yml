@@ -19,7 +19,7 @@ jobs:
         env:
           PYTHONPATH: src
         run: python3 -m unittest discover -s tests -v
-      - name: Authenticate and create test folder
+      - name: Upload synthetic image and verify downloaded original
         env:
           PYTHONPATH: src
           AMAZON_PHOTOS_COOKIES: ${{ secrets.AMAZON_PHOTOS_COOKIES }}

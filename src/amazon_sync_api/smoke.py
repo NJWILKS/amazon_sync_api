@@ -1,12 +1,26 @@
-"""Manual live smoke check: authenticate and create/verify one test folder."""
+"""Manual live check: synthetic image upload and original retrieval under test/UTC."""
+from datetime import datetime, timezone
+import hashlib
 import json
 import os
 from pathlib import Path
+import struct
 import tempfile
 from urllib.parse import urlencode
+import zlib
 
 from .amazon import Amazon, Transport
 from .core import BackupError
+
+
+def sample_png():
+    """Generate a valid 2x2 RGB PNG with no personal content or metadata."""
+    def chunk(kind, data):
+        return (struct.pack(">I", len(data)) + kind + data
+                + struct.pack(">I", zlib.crc32(kind + data)))
+    pixels = b"\x00\xff\x00\x00\x00\xff\x00\x00\x00\x00\xff\xff\xff\xff"
+    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", 2, 2, 8, 2, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress(pixels)) + chunk(b"IEND", b""))
 
 
 def create_test_folder(provider):
@@ -21,10 +35,35 @@ def create_test_folder(provider):
     if not all(isinstance(node.get(k), str) and node[k] for k in ("id", "ownerId")):
         raise BackupError("Account root is missing identifiers")
     provider.root_id, provider.owner = node["id"], node["ownerId"]
-    name = "integration-test-amazon-sync-api"
+    name = "test"
     folder = provider.ensure_folder(provider.root_id, name)
     if provider.find(provider.root_id, name, "FOLDER") != folder:
         raise BackupError("Test folder could not be independently read back")
+    return folder
+
+
+def verify_image(provider, workspace, timestamp=None):
+    stamp = timestamp or datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
+    if len(stamp) != 14 or not stamp.isascii() or not stamp.isdigit():
+        raise BackupError("Invalid test timestamp")
+    parent = create_test_folder(provider)
+    if provider.find(parent, stamp, "FOLDER"):
+        raise BackupError("Timestamp folder already exists; start a new run")
+    folder = provider.ensure_folder(parent, stamp)
+    if provider.find(parent, stamp, "FOLDER") != folder:
+        raise BackupError("Timestamp folder could not be independently read back")
+    source = workspace / "sample.png"
+    content = sample_png()
+    source.write_bytes(content)
+    expected = hashlib.sha256(content).hexdigest()
+    node = provider.upload(folder, "sample.png", source)
+    if not node or provider.find_file(folder, "sample.png") != node:
+        raise BackupError("Uploaded image could not be independently read back")
+    if provider.original_sha256(node) != expected:
+        raise BackupError("Downloaded original SHA-256 does not match synthetic image")
+    if source.read_bytes() != content:
+        raise BackupError("Synthetic source changed during test")
+    return "test/" + stamp + "/sample.png"
 
 
 def main():
@@ -39,8 +78,8 @@ def main():
             fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
             with os.fdopen(fd, "w", encoding="utf-8") as stream:
                 json.dump(cookies, stream)
-            create_test_folder(Amazon(Transport("uk", path)))
-        print("PASS: Amazon connection and test-folder read-back verified")
+            target = verify_image(Amazon(Transport("uk", path)), Path(tmp))
+        print("PASS: upload and downloaded original SHA-256 verified at " + target)
         return 0
     except BackupError as exc:
         print("FAIL: " + str(exc))

@@ -42,3 +42,5 @@ Nick requested configurable collections: immich, captures and photoscans, each w
 
 
 20 October 2026: user authorized manual GitHub smoke testing using the repository cookie secret and automatic account-root discovery, without separately configured account ID. This exception is limited to creating/reading one dedicated test folder; production account binding remains unchanged.
+
+20 October 2026: user chose test/YYYYMMDDHHMMSS/ as the test destination and authorized a synthetic image upload, original retrieval and SHA-256 comparison. UTC timestamp, no automatic cleanup. Asked about deletion capability separately; no trash/delete implementation or action authorized by that question alone.

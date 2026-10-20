@@ -20,3 +20,6 @@ Added main-only workflow using AMAZON_PHOTOS_COOKIES, private temporary runner f
 
 ## 20 October 2026 — live GitHub connection/folder test passed
 Run 39421837250 on commit 61b237609a40d16a73ed872b180f976296554ee4 passed at 12:23 UTC (13:23 BST). Authenticated root discovery and create/reuse of integration-test-amazon-sync-api followed by independent folder read-back succeeded. All 21 offline tests passed on Ubuntu; the opt-in full-tree test skipped. First run 39421583776 failed on non-JSON metadata; added JSON Accept header and full root-query parameters before the successful run. The individual cause is not isolated. No photos uploaded/deleted; full-tree upload, retrieval and recovery remain unverified. Secrets were masked and response bodies were not logged.
+
+## 20 October 2026 — timestamped synthetic image smoke extension
+Updated manual workflow to upload a valid generated 2x2 PNG under test/UTC-timestamp/, independently resolve the uploaded file, and stream/hash its original. Added mismatch/collision tests. Local 23 passed, two skipped; live run pending. No deletion API added. Keep failed test objects to diagnose unknown outcomes.
