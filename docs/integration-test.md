@@ -32,3 +32,5 @@ If opted in without a config, the test fails rather than silently skipping. Expi
 
 ## GitHub connection/folder smoke test
 Run Actions > Amazon live connection test > Run workflow on main. The manual workflow uses AMAZON_PHOTOS_COOKIES (complete UK cookie JSON). No expected account ID or PC configuration is required. It discovers one authenticated root and creates/reuses integration-test-amazon-sync-api, then reads it back. It uploads no photos and deletes nothing. Cookies go into a mode-600 temporary runner file, removed on process exit. No credential/account values, response bodies or artifacts are logged. Live execution pending; offline validation: 20 passed, two skipped on Windows. Full-tree live testing remains a separate opt-in test.
+
+Observed live evidence, 20 October 2026: GitHub run https://github.com/NJWILKS/amazon_sync_api/actions/runs/39421837250 passed connection and test-folder read-back on commit 61b237609a40d16a73ed872b180f976296554ee4. No separate account ID was required. Full photo-tree upload/retrieval test is still unexecuted.

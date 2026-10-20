@@ -17,3 +17,6 @@ Added a real-provider synthetic tree test, private config template and execution
 
 ## 20 October 2026 — manual GitHub smoke workflow
 Added main-only workflow using AMAZON_PHOTOS_COOKIES, private temporary runner file and automatic root discovery. Creates/reuses and reads back one test folder; no uploads or deletion. Offline 20 passed, two skipped. Live execution pending. No recovery claim. Keep test folder after failures; inspect before retrying.
+
+## 20 October 2026 — live GitHub connection/folder test passed
+Run 39421837250 on commit 61b237609a40d16a73ed872b180f976296554ee4 passed at 12:23 UTC (13:23 BST). Authenticated root discovery and create/reuse of integration-test-amazon-sync-api followed by independent folder read-back succeeded. All 21 offline tests passed on Ubuntu; the opt-in full-tree test skipped. First run 39421583776 failed on non-JSON metadata; added JSON Accept header and full root-query parameters before the successful run. The individual cause is not isolated. No photos uploaded/deleted; full-tree upload, retrieval and recovery remain unverified. Secrets were masked and response bodies were not logged.
