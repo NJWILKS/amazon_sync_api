@@ -44,7 +44,7 @@ class Transport:
                     or not (host in {self.web, self.content} or
                             (method == "GET" and host.endswith(".amazonaws.com")))):
                 raise BackupError("Unapproved HTTPS endpoint")
-            headers = {"User-Agent": "amazon-sync-api/0.1"}
+            headers = {"User-Agent": "amazon-sync-api/0.1", "Accept": "application/json"}
             if host in {self.web, self.content}:
                 headers.update(Cookie=self.cookie, **{"x-amzn-sessionid": self.session_id})
             body = json.dumps(payload).encode() if payload is not None else None
@@ -92,7 +92,13 @@ class Transport:
                 try:
                     result = json.loads(raw)
                 except ValueError:
-                    raise BackupError("Amazon returned invalid metadata") from None
+                    # Classify only; never expose Amazon's response body or redirect URLs.
+                    lower = raw.lower()
+                    category = ("sign-in page" if b"ap/signin" in lower or b"authportal" in lower
+                                else "browser verification page" if b"captcha" in lower
+                                else "HTML page" if b"<html" in lower or b"<!doctype html" in lower
+                                else "non-JSON response")
+                    raise BackupError("Amazon returned " + category + " instead of API metadata") from None
                 if not isinstance(result, dict):
                     raise BackupError("Unexpected metadata structure")
                 return result

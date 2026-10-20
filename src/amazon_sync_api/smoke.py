@@ -12,7 +12,8 @@ from .core import BackupError
 def create_test_folder(provider):
     # Test-only account discovery; production connect still requires expected identity.
     result = provider.transport.request("GET", provider.base + "/nodes?" + urlencode(
-        {"filters": "isRoot:true", "resourceVersion": "V2", "ContentType": "JSON"}))
+        {"filters": "isRoot:true", "asset": "ALL", "tempLink": "false",
+         "resourceVersion": "V2", "ContentType": "JSON"}))
     data = result.get("data")
     if not isinstance(data, list) or len(data) != 1 or not isinstance(data[0], dict):
         raise BackupError("Could not establish one account root")
