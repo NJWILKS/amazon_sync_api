@@ -23,3 +23,6 @@ Run 39421837250 on commit 61b237609a40d16a73ed872b180f976296554ee4 passed at 12:
 
 ## 20 October 2026 — timestamped synthetic image smoke extension
 Updated manual workflow to upload a valid generated 2x2 PNG under test/UTC-timestamp/, independently resolve the uploaded file, and stream/hash its original. Added mismatch/collision tests. Local 23 passed, two skipped; live run pending. No deletion API added. Keep failed test objects to diagnose unknown outcomes.
+
+## 20 October 2026 — image live test authentication blocker
+Run 39425864213 (6220663) failed with session-expired/access-refused response. Diagnostic run 39426142617 (66acb85) confirmed refusal at account-root authentication, before any cloud writes in that run. Ubuntu offline suite: 24 passed, full-tree live test skipped. Timestamped image upload and original hash verification remain unverified. Operator must refresh AMAZON_PHOTOS_COOKIES privately before another live attempt; no secrets or response bodies logged. No deletion added.

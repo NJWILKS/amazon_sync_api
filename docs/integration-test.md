@@ -37,3 +37,5 @@ Observed live evidence, 20 October 2026: GitHub run https://github.com/NJWILKS/a
 
 ## Timestamped image test — 20 October 2026
 The manual GitHub workflow now uploads a generated 2x2 PNG to test/YYYYMMDDHHMMSS/sample.png (UTC), independently reads the image node back, streams the original download and compares SHA-256. The test root is reused; each timestamp folder must be absent before creation. Existing timestamp collisions fail without upload. Test images/folders are retained, with no deletion. The earlier fixed-folder test is historical. Local synthetic validation: 23 passed, two skipped on Windows; this image extension awaits live execution. Larger collection-tree testing remains separate.
+
+Current image-test status, 20 October 2026: authentication refused at root lookup in diagnostic run https://github.com/NJWILKS/amazon_sync_api/actions/runs/39426142617 . Timestamped image test is not live verified. Refresh the cookie secret privately before retrying. Earlier successful folder-only run remains valid historical evidence, not current authentication health.
