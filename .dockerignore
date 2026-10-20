@@ -1,0 +1,16 @@
+.git
+.env
+.env.*
+secrets
+credentials
+data
+state
+inventory
+reports
+logs
+**/__pycache__
+**/*.sqlite*
+**/*.parquet
+**/*.pem
+**/*.key
+**/cookies*.json

@@ -4,7 +4,7 @@ A containerised, upload-only backup worker for existing photo libraries and Amaz
 
 **Status: requirements baseline v0.1 — draft for review. No application implementation, deployment or live Amazon connection.**
 
-Start with [requirements](docs/requirements.md), [acceptance tests](docs/acceptance.md), [decisions and open questions](docs/decisions.md), and [delivery milestones](docs/roadmap.md).
+Start with [what the API evidence actually supports](docs/api-capabilities.md), then [requirements](docs/requirements.md), [acceptance tests](docs/acceptance.md), [decisions and open questions](docs/decisions.md), and [delivery milestones](docs/roadmap.md).
 
 The project separates source content, application state and off-site evidence. It must reconcile an existing Amazon collection, preserve originals and never propagate deletions. Deployment hosts and source-storage locations are configuration, not code. Moving source storage must require reviewed configuration changes rather than rebuilding the worker.
 
