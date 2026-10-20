@@ -24,6 +24,7 @@ def sample_png():
 
 
 def create_test_folder(provider):
+    print("STEP: read authenticated account root")
     # Test-only account discovery; production connect still requires expected identity.
     result = provider.transport.request("GET", provider.base + "/nodes?" + urlencode(
         {"filters": "isRoot:true", "asset": "ALL", "tempLink": "false",
@@ -36,6 +37,7 @@ def create_test_folder(provider):
         raise BackupError("Account root is missing identifiers")
     provider.root_id, provider.owner = node["id"], node["ownerId"]
     name = "test"
+    print("STEP: create/read test root folder")
     folder = provider.ensure_folder(provider.root_id, name)
     if provider.find(provider.root_id, name, "FOLDER") != folder:
         raise BackupError("Test folder could not be independently read back")
@@ -47,6 +49,7 @@ def verify_image(provider, workspace, timestamp=None):
     if len(stamp) != 14 or not stamp.isascii() or not stamp.isdigit():
         raise BackupError("Invalid test timestamp")
     parent = create_test_folder(provider)
+    print("STEP: create/read UTC timestamp folder")
     if provider.find(parent, stamp, "FOLDER"):
         raise BackupError("Timestamp folder already exists; start a new run")
     folder = provider.ensure_folder(parent, stamp)
@@ -56,9 +59,11 @@ def verify_image(provider, workspace, timestamp=None):
     content = sample_png()
     source.write_bytes(content)
     expected = hashlib.sha256(content).hexdigest()
+    print("STEP: upload synthetic PNG")
     node = provider.upload(folder, "sample.png", source)
     if not node or provider.find_file(folder, "sample.png") != node:
         raise BackupError("Uploaded image could not be independently read back")
+    print("STEP: retrieve and hash uploaded original")
     if provider.original_sha256(node) != expected:
         raise BackupError("Downloaded original SHA-256 does not match synthetic image")
     if source.read_bytes() != content:
