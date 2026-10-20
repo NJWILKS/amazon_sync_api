@@ -1,0 +1,15 @@
+services:
+  amazon-sync:
+    build: .
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    network_mode: none
+    volumes:
+      - ./config.local.toml:/config/collections.toml:ro
+      - ./fixtures/immich:/sources/immich:ro
+      - ./fixtures/captures:/sources/captures:ro
+      - ./fixtures/photoscans:/sources/photoscans:ro
+      - ./state:/state
+      - ./secrets:/run/secrets:ro
+    # Offline planning only. Live networking requires an explicit pilot override.

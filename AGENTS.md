@@ -9,3 +9,4 @@ Keep secrets, private filenames/GPS metadata, real inventories, account cookies 
 Sources must remain read-only. Do not introduce source/cloud deletion or implicit write operations into inventory/dry-run paths. A test must never operate on personal originals; use explicit synthetic fixtures.
 
 Keep application state and content protection separate. Update affected setup/recovery documentation and docs/change-log.md after material changes. Keep private deployment details outside this public repository. Do not change an operator's storage or disconnect remote sessions as part of development.
+

@@ -11,3 +11,8 @@ The project separates source content, application state and off-site evidence. I
 `trevorhobenshield/amazon_photos` is an evaluated integration candidate, not a selected or installed dependency. See [upstream evaluation](docs/upstream.md). This repository is a new project, not a fork of that library.
 
 No private photos, inventories, cookies, tokens or credential-bearing configuration belong in Git.
+
+# Collection prototype
+
+See [collection configuration and validation status](docs/collections.md) for independent `immich`, `captures` and `photoscans` source/root mappings. This experimental upload slice has offline tests; live Amazon compatibility and recovery are unverified. Container scaffolding defaults to offline planning with networking disabled.
+

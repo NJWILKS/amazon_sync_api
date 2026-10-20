@@ -84,3 +84,4 @@ No public supported Photos API contract was established by this review. An [Amaz
 5. Do cookies expire/revoke cleanly without empty-library or false-success results?
 
 Then a small upload/download pilot must establish original-byte preservation, formats, conflicts and repeated-run behavior. Those are test goals, not known capabilities today.
+

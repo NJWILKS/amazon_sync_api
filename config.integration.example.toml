@@ -1,0 +1,20 @@
+# Copy to a private *.local.toml file. Never commit real credentials/account IDs.
+region = "uk"
+expected_owner_id = "SET_EXPECTED_ACCOUNT_OWNER"
+cookies_file = "/private/amazon-cookies.json"
+state_file = "/private/amazon-integration.sqlite3"
+
+[[collections]]
+id = "immich"
+source = "/unused/synthetic-generated-by-test"
+remote_root = "integration-test-immich"
+
+[[collections]]
+id = "captures"
+source = "/unused/synthetic-generated-by-test"
+remote_root = "integration-test-captures"
+
+[[collections]]
+id = "photoscans"
+source = "/unused/synthetic-generated-by-test"
+remote_root = "integration-test-photoscans"

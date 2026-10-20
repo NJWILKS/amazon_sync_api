@@ -35,3 +35,10 @@
 | D-09 | State/secret storage and refresh ownership? | Operator-configured private paths and documented independent recovery before deployment. |
 
 SQLite schema, framework, CLI layout and scheduler are implementation choices, not requirements approvals.
+
+## 20 October 2026 — collection model and prototype
+
+Nick requested configurable collections: immich, captures and photoscans, each with its own source tree and Amazon root folder. Collection IDs and roots are independent of Amazon albums. A local experimental Python adapter and offline tests now exist; live compatibility and full requirements remain unverified. See [collections](collections.md). Docker files are proposed development scaffolding, not a tested deployment.
+
+
+20 October 2026: user authorized manual GitHub smoke testing using the repository cookie secret and automatic account-root discovery, without separately configured account ID. This exception is limited to creating/reading one dedicated test folder; production account binding remains unchanged.

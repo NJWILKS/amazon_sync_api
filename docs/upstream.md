@@ -22,3 +22,4 @@ Source inspections were performed19 October2026. Findings require implementation
 ## Provenance and project boundary
 
 No upstream implementation is copied into this new requirements repository. It is not a GitHub fork and makes no claim to upstream endorsement. A fork, dependency or narrow replacement adapter is a later documented decision.
+

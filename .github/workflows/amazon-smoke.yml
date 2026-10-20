@@ -1,0 +1,26 @@
+name: Amazon live connection test
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: amazon-live-smoke
+  cancel-in-progress: false
+jobs:
+  connect-and-create-folder:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Offline tests
+        env:
+          PYTHONPATH: src
+        run: python3 -m unittest discover -s tests -v
+      - name: Authenticate and create test folder
+        env:
+          PYTHONPATH: src
+          AMAZON_PHOTOS_COOKIES: ${{ secrets.AMAZON_PHOTOS_COOKIES }}
+        run: python3 -m amazon_sync_api.smoke

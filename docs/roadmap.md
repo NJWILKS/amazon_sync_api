@@ -14,3 +14,4 @@
 | M7 Unattended release | Reviewed schedule and repeatable deployment | Evidence-backed go-live; no destructive behavior |
 
 The operator's backup/recovery records remain authoritative for actual content protection. Creating this repository does not complete a backup or authorise production storage changes.
+

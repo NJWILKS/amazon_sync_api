@@ -96,3 +96,4 @@ Priority **MUST** means required for release; **SHOULD** means a documented trad
 ## Non-goals
 
 No source cleanup; no Amazon trash/purge; no bidirectional sync; no replacement for encrypted server/app backups; no automatic source-storage migration; no implied off-site video/document protection.
+

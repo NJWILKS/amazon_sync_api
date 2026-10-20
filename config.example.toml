@@ -1,0 +1,25 @@
+# Copy outside the source tree as config.local.toml; keep real values private.
+region = "uk"
+expected_owner_id = "SET_EXPECTED_ACCOUNT_OWNER"
+cookies_file = "/run/secrets/amazon-cookies.json"
+state_file = "/state/checkpoints.sqlite3"
+
+[limits]
+max_files = 100
+max_bytes = 1073741824
+
+[[collections]]
+id = "immich"
+source = "/sources/immich"
+remote_root = "immich"
+
+[[collections]]
+id = "captures"
+source = "/sources/captures"
+remote_root = "captures"
+
+[[collections]]
+id = "photoscans"
+source = "/sources/photoscans"
+remote_root = "photoscans"
+

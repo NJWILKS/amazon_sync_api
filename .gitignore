@@ -30,3 +30,9 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+# Private operator configuration and synthetic runtime state
+*.local.toml
+/secrets/
+/state/
+/fixtures/

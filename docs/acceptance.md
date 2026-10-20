@@ -23,3 +23,8 @@ Version0.1,20 October2026. Proposed tests, **not executed**. Each scenario must 
 | AT-17 Existing-copy preservation | SAFE-06, INV-04 | Old Amazon collection remains unchanged throughout read-only/pilot work; reconciliation report distinguishes verified, missing and unresolved objects. |
 
 No production photo is a disposable test fixture. The first live pilot needs an explicitly selected scope; do not infer full-library upload permission from approval of these draft requirements.
+
+## 20 October 2026 — implemented fixture integration test
+
+`tests/test_live_amazon.py` adds opt-in real account connection, three configured roots, nested/empty folder checks, six synthetic PNG uploads, original retrieval/SHA-256 comparison and idempotent rerun. This partially exercises AT-01/03/08/11/14; it does not complete those scenarios. Offline fixture guard passed. Live test has not run: private credentials and expected account identity are not configured. See [execution instructions](integration-test.md).
+
